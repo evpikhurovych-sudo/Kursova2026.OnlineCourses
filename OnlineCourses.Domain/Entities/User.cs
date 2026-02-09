@@ -1,0 +1,16 @@
+﻿namespace OnlineCourses.Domain.Entities
+{
+    public class User : BaseEntity
+    {
+        public string Name { get; private set; }
+        public string Email { get; private set; }
+        public UserRole Role { get; private set; }
+
+        public User(string name, string email, UserRole role)
+        {
+            Name = name;
+            Email = email;
+            Role = role;
+        }
+    }
+}
