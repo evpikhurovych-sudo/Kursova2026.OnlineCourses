@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace OnlineCourses.Domain.Entities
+﻿namespace OnlineCourses.Domain.Entities
 {
     public class Course : BaseEntity
     {
@@ -15,6 +13,12 @@ namespace OnlineCourses.Domain.Entities
 
         public Course(string title, string description, decimal price, Guid instructorId)
         {
+            if (string.IsNullOrWhiteSpace(title))
+                throw new ArgumentException("Title cannot be empty");
+
+            if (price < 0)
+                throw new ArgumentOutOfRangeException(nameof(price), "Price cannot be negative");
+
             Title = title;
             Description = description;
             Price = price;
@@ -23,7 +27,9 @@ namespace OnlineCourses.Domain.Entities
 
         public void AddLesson(Lesson lesson)
         {
-            // заглушка (поки що без перевірок)
+            if (lesson == null)
+                throw new ArgumentNullException(nameof(lesson));
+
             _lessons.Add(lesson);
         }
     }

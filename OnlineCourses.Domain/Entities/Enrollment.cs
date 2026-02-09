@@ -21,9 +21,11 @@ namespace OnlineCourses.Domain.Entities
 
         public void UpdateProgress(int percent)
         {
+            if (percent < 0 || percent > 100)
+                throw new ArgumentOutOfRangeException(nameof(percent), "Progress must be between 0 and 100");
+
             ProgressPercent = percent;
 
-            // Raise event
             ProgressChanged?.Invoke(
                 this,
                 new ProgressChangedEventArgs(Id, ProgressPercent)
