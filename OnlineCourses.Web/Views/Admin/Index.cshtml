@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Адмін-панель";
+}
+
+<h1>Адмін-панель</h1>
+<p class="text-muted">Адміністратор може керувати курсами, користувачами та переглядати статистику системи.</p>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>Користувачі</h4>
+            <h2>@ViewBag.UsersCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>Курси</h4>
+            <h2>@ViewBag.CoursesCount</h2>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card p-3">
+            <h4>Записи</h4>
+            <h2>@ViewBag.EnrollmentsCount</h2>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex gap-3">
+    <a href="/Admin/Courses" class="btn btn-primary">
+        Керувати курсами
+    </a>
+
+    <a href="/Admin/Users" class="btn btn-outline-primary">
+        Керувати користувачами
+    </a>
+</div>

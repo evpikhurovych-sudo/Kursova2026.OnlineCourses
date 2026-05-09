@@ -1,0 +1,54 @@
+﻿@model List<OnlineCourses.Web.Models.Course>
+
+@{
+    ViewData["Title"] = "Керування курсами";
+}
+
+<h1>Керування курсами</h1>
+
+<a href="/Admin/CreateCourse" class="btn btn-primary mb-3">
+    Додати курс
+</a>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<div class="card p-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Назва</th>
+                <th>Тривалість</th>
+                <th>Користувачі</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Title</td>
+                    <td>@course.Duration</td>
+                    <td>@course.Enrollments.Count</td>
+                    <td>
+                        <a href="/Admin/EditCourse/@course.Id" class="btn btn-outline-primary btn-sm">
+                            Редагувати
+                        </a>
+
+                        <a href="/Admin/DeleteCourse/@course.Id" class="btn btn-danger btn-sm"
+                           onclick="return confirm('Видалити курс?')">
+                            Видалити
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

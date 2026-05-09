@@ -1,0 +1,78 @@
+﻿@model List<OnlineCourses.Web.Models.Enrollment>
+
+@{
+    ViewData["Title"] = "Особистий кабінет";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Особистий кабінет</h1>
+        <p class="text-muted">Тут відображаються ваші курси та прогрес навчання.</p>
+    </div>
+
+    <a href="/Courses" class="btn btn-primary">
+        Знайти новий курс
+    </a>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success rounded-4">
+        @TempData["Message"]
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="empty-box">
+        <h4>Ви ще не записані на жоден курс</h4>
+        <p>Перейдіть до каталогу та оберіть курс для навчання.</p>
+    </div>
+}
+
+<div class="row">
+    @foreach (var enrollment in Model)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card cabinet-card">
+                <img src="@enrollment.Course?.ImageUrl" class="course-image" alt="course image" />
+
+                <div class="card-body">
+                    <h4>@enrollment.Course?.Title</h4>
+                    <p class="text-muted">@enrollment.Course?.Description</p>
+
+                    <p><b>Прогрес навчання:</b> @enrollment.Progress%</p>
+
+                    <div class="progress mb-3">
+                        <div class="progress-bar" style="width:@enrollment.Progress%">
+                            @enrollment.Progress%
+                        </div>
+                    </div>
+
+                    <h5>Завдання курсу:</h5>
+
+                    @foreach (var lesson in enrollment.Course?.Lessons ?? new List<OnlineCourses.Web.Models.Lesson>())
+                    {
+                        <div class="small-task">
+                            <b>@lesson.Title</b>
+                            <p>@lesson.TaskText</p>
+                        </div>
+                    }
+
+                    <div class="d-flex gap-2 mt-3">
+                        <a href="/Courses/IncreaseProgress/@enrollment.Id" class="btn btn-success">
+                            Пройти +10%
+                        </a>
+
+                        <a href="/Courses/Details/@enrollment.CourseId" class="btn btn-outline-primary">
+                            Детальніше
+                        </a>
+                        <a href="/Courses/Learn/@enrollment.Id" class="btn btn-primary">
+                            Продовжити
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

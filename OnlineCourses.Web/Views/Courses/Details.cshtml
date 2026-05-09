@@ -1,0 +1,109 @@
+﻿@model OnlineCourses.Web.Models.Course
+
+@{
+    ViewData["Title"] = "Інформація про курс";
+    var lessons = Model.Lessons?.ToList() ?? new List<OnlineCourses.Web.Models.Lesson>();
+}
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="course-details-page">
+
+    <section class="course-hero">
+        <div class="course-hero-text">
+            <h1>@Model.Title</h1>
+
+            <p>@Model.Description</p>
+
+            <div class="course-buttons">
+                <a href="/Courses/Enroll/@Model.Id" class="btn btn-primary">
+                    Записатися на курс
+                </a>
+            </div>
+        </div>
+
+        <div class="course-video-preview">
+            <div class="laptop-frame">
+                <div class="video-body">
+                    <img src="@Model.ImageUrl" class="preview-course-image" alt="@Model.Title" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="course-program-section">
+        <div class="program-main">
+            <h2>Програма курсу</h2>
+
+            <div class="program-card">
+                <div class="program-module">
+                    <div class="module-header">
+                        <span>Модуль 1: Теоретична частина</span>
+                        <span class="dots">•••</span>
+                    </div>
+
+                    @for (int i = 0; i < lessons.Take(2).Count(); i++)
+                    {
+                        <div class="lesson-row">
+                            <span>•</span>
+                            <span>@lessons[i].Title</span>
+                        </div>
+                    }
+                </div>
+
+                <div class="program-module second">
+                    <div class="module-header">
+                        <span>Модуль 2: Практика і тестування</span>
+                        <span class="dots">•••</span>
+                    </div>
+
+                    @for (int i = 2; i < lessons.Count; i++)
+                    {
+                        <div class="lesson-row">
+                            <span>•</span>
+                            <span>@lessons[i].Title</span>
+                        </div>
+                    }
+
+                    <div class="lesson-row">
+                        <span>•</span>
+                        <span>Підсумковий тест</span>
+                    </div>
+                </div>
+
+                <a href="/Courses/Enroll/@Model.Id" class="btn btn-primary w-100 mt-3">
+                    Записатися на курс
+                </a>
+            </div>
+        </div>
+
+        <aside class="teacher-card">
+            <div class="teacher-top">
+                <img src="@Model.TeacherPhotoUrl" class="teacher-avatar-img" alt="@Model.TeacherName" />
+
+                <div>
+                    <h5>@Model.TeacherName</h5>
+                    <div class="teacher-position">@Model.TeacherPosition</div>
+                    <div class="stars">★★★★★ @Model.TeacherRating</div>
+                </div>
+            </div>
+
+            <p>@Model.TeacherDescription</p>
+
+            <div class="teacher-stats">
+                <span>@Model.TeacherExperienceYears років досвіду</span>
+                <span>@Model.TeacherReviewsCount відгуків</span>
+            </div>
+
+            <a href="/Courses/Teacher/@Model.Id" class="btn btn-outline-secondary w-100">
+                Детальніше
+            </a>
+        </aside>
+    </section>
+
+</div>

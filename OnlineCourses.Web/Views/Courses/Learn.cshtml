@@ -1,0 +1,100 @@
+﻿@model OnlineCourses.Web.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Навчання";
+    var lessons = Model.Course?.Lessons?.ToList() ?? new List<OnlineCourses.Web.Models.Lesson>();
+    int lessonIndex = ViewBag.LessonIndex ?? 0;
+    var currentLesson = lessons.Count > 0 ? lessons[lessonIndex] : null;
+    int prev = lessonIndex - 1;
+    int next = lessonIndex + 1;
+}
+
+<div class="learn-layout">
+    <aside class="learn-sidebar">
+        <h5>@Model.Course?.Title</h5>
+
+        @for (int i = 0; i < lessons.Count; i++)
+        {
+            <a class="lesson-link @(i == lessonIndex ? "active" : "")"
+               href="/Courses/Learn/@Model.Id?lessonIndex=@i">
+                Урок @(i + 1)
+            </a>
+        }
+
+        <a class="lesson-link" href="/Courses/Test/@Model.Id">
+            Тест
+        </a>
+
+        <div class="sidebar-progress">
+            <p>Прогрес: @Model.Progress%</p>
+            <div class="progress">
+                <div class="progress-bar" style="width:@Model.Progress%"></div>
+            </div>
+        </div>
+    </aside>
+
+    <section class="learn-content">
+        <h1>Урок @(lessonIndex + 1): @currentLesson?.Title</h1>
+
+        <p class="text-muted">
+            Перегляньте відео, прочитайте матеріал лекції та виконайте практичне завдання.
+        </p>
+
+        <div class="video-placeholder">
+            <iframe width="100%" height="100%"
+                    src="@currentLesson?.VideoUrl"
+                    title="Навчальне відео"
+                    frameborder="0"
+                    allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="lesson-material mt-4">
+            <h4>Теоретичний матеріал</h4>
+            <p>@currentLesson?.TheoryText</p>
+        </div>
+
+        <div class="lesson-material mt-3">
+            <h4>Практичне завдання</h4>
+            <p>@currentLesson?.TaskText</p>
+        </div>
+
+        <div class="d-grid mt-4">
+            <a href="/Courses/CompleteLesson/@Model.Id?lessonIndex=@lessonIndex"
+               class="btn btn-primary">
+                Позначити урок як пройдений
+            </a>
+        </div>
+
+        <div class="d-flex gap-3 mt-3">
+            @if (prev >= 0)
+            {
+                <a href="/Courses/Learn/@Model.Id?lessonIndex=@prev"
+                   class="btn btn-outline-secondary w-50">
+                    ‹ Попередній урок
+                </a>
+            }
+            else
+            {
+                <button class="btn btn-outline-secondary w-50" disabled>
+                    ‹ Попередній урок
+                </button>
+            }
+
+            @if (next < lessons.Count)
+            {
+                <a href="/Courses/Learn/@Model.Id?lessonIndex=@next"
+                   class="btn btn-outline-primary w-50">
+                    Наступний урок ›
+                </a>
+            }
+            else
+            {
+                <a href="/Courses/Test/@Model.Id"
+                   class="btn btn-outline-primary w-50">
+                    Перейти до тесту
+                </a>
+            }
+        </div>
+    </section>
+</div>

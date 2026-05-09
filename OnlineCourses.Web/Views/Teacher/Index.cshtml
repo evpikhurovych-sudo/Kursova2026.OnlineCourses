@@ -1,0 +1,26 @@
+﻿@model List<OnlineCourses.Web.Models.Course>
+
+@{
+    ViewData["Title"] = "Кабінет викладача";
+}
+
+<h1>Кабінет викладача</h1>
+<p class="text-muted">Тут викладач бачить курси, уроки та завдання.</p>
+
+@foreach (var course in Model)
+{
+    <div class="card p-3 mb-3">
+        <h3>@course.Title</h3>
+        <p>@course.Description</p>
+
+        <h5>Уроки курсу:</h5>
+
+        @foreach (var lesson in course.Lessons)
+        {
+            <div class="lesson-box">
+                <b>@lesson.Title</b>
+                <p>@lesson.TaskText</p>
+            </div>
+        }
+    </div>
+}

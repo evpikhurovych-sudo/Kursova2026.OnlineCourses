@@ -1,0 +1,73 @@
+﻿@model List<OnlineCourses.Web.Models.User>
+
+@{
+    ViewData["Title"] = "Користувачі";
+}
+
+<h1>Керування користувачами</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<div class="card p-3">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Логін</th>
+                <th>Роль</th>
+                <th>Статус</th>
+                <th>Змінити роль</th>
+                <th>Дія</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Login</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @if (user.IsBlocked)
+                        {
+                            <span class="text-danger">Заблокований</span>
+                        }
+                        else
+                        {
+                            <span class="text-success">Активний</span>
+                        }
+                    </td>
+                    <td>
+                        <form method="post" action="/Admin/ChangeRole/@user.Id" class="d-flex gap-2">
+                            <select name="role" class="form-control">
+                                <option value="Student" selected="@(user.Role == "Student")">Student</option>
+                                <option value="Teacher" selected="@(user.Role == "Teacher")">Teacher</option>
+                                <option value="Admin" selected="@(user.Role == "Admin")">Admin</option>
+                            </select>
+
+                            <button class="btn btn-primary btn-sm" type="submit">
+                                Зберегти
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        @if (user.IsBlocked)
+                        {
+                            <a href="/Admin/UnblockUser/@user.Id" class="btn btn-outline-primary btn-sm">
+                                Розблокувати
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="/Admin/BlockUser/@user.Id" class="btn btn-danger btn-sm">
+                                Заблокувати
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

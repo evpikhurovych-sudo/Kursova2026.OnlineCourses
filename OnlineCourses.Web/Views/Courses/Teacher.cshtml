@@ -1,0 +1,60 @@
+﻿@model OnlineCourses.Web.Models.Course
+
+@{
+    ViewData["Title"] = "Викладач курсу";
+}
+
+<div class="teacher-page">
+    <div class="teacher-profile-card">
+        <img src="@Model.TeacherPhotoUrl" class="teacher-profile-photo" alt="@Model.TeacherName" />
+
+        <div>
+            <h1>@Model.TeacherName</h1>
+            <h4>@Model.TeacherPosition</h4>
+
+            <p class="text-muted">
+                @Model.TeacherDescription
+            </p>
+
+            <div class="teacher-info-grid">
+                <div>
+                    <b>Курс</b>
+                    <span>@Model.Title</span>
+                </div>
+
+                <div>
+                    <b>Досвід</b>
+                    <span>@Model.TeacherExperienceYears років</span>
+                </div>
+
+                <div>
+                    <b>Рейтинг</b>
+                    <span>★★★★★ @Model.TeacherRating</span>
+                </div>
+
+                <div>
+                    <b>Відгуки</b>
+                    <span>@Model.TeacherReviewsCount відгуків</span>
+                </div>
+            </div>
+
+            <div class="reviews-box mt-4">
+                <h4>Відгуки студентів</h4>
+
+                <div class="review-item">
+                    <b>Студент 1</b>
+                    <p>Матеріал пояснюється зрозуміло, лекції структуровані та корисні.</p>
+                </div>
+
+                <div class="review-item">
+                    <b>Студент 2</b>
+                    <p>Сподобались практичні завдання та приклади з курсу.</p>
+                </div>
+            </div>
+
+            <a href="/Courses/Details/@Model.Id" class="btn btn-primary mt-4">
+                Назад до курсу
+            </a>
+        </div>
+    </div>
+</div>

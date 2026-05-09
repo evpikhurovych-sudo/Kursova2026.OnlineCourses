@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Вхід";
+}
+
+<div class="auth-card mx-auto">
+    <h1>Вхід</h1>
+    <p class="text-muted">Увійдіть, щоб переглянути свої курси.</p>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Логін</label>
+            <input name="login" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input name="password" type="password" class="form-control" required />
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Увійти</button>
+    </form>
+</div>

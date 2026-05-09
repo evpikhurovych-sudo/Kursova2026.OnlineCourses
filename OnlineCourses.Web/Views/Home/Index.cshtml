@@ -1,8 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<OnlineCourses.Web.Models.Course>
+
+@{
+    ViewData["Title"] = "Головна";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h1>Навчайся онлайн у зручний час</h1>
+
+            <p>
+                Курси з IT, дизайну, баз даних та інших напрямків.
+                Обирай курс, записуйся та відстежуй свій прогрес.
+            </p>
+
+            <a href="/Courses" class="btn btn-primary btn-lg mt-3">
+                Перейти до каталогу
+            </a>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <div class="p-4 bg-white rounded-4 shadow">
+                <img src="/images/online.jpg" class="course-image" alt="Онлайн-навчання" />
+
+                <h4 class="mt-3">Онлайн-навчання</h4>
+
+                <p class="text-muted">
+                    Відео, уроки, тести та прогрес в одному місці
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5 text-center">
+    <h2 class="section-title">Популярні курси</h2>
+</div>
+
+<div class="row">
+    @foreach (var course in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card p-3 h-100">
+
+                <img src="@course.ImageUrl" class="course-image" alt="@course.Title" />
+
+                <h4 class="mt-3">@course.Title</h4>
+
+                <p class="text-muted">
+                    @course.Description
+                </p>
+
+                <a href="/Courses/Details/@course.Id" class="btn btn-primary mt-auto">
+                    Детальніше
+                </a>
+
+            </div>
+        </div>
+    }
 </div>

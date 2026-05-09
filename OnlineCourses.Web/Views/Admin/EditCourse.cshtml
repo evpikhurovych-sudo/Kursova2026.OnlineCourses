@@ -1,0 +1,40 @@
+﻿@model OnlineCourses.Web.Models.Course
+
+@{
+    ViewData["Title"] = "Редагувати курс";
+}
+
+<h1>Редагувати курс</h1>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+
+<form method="post" class="card p-4">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Назва курсу</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Опис</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Тривалість</label>
+        <input asp-for="Duration" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Картинка</label>
+        <input asp-for="ImageUrl" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Зберегти
+    </button>
+</form>

@@ -1,0 +1,261 @@
+﻿@model OnlineCourses.Web.Models.Enrollment
+
+@{
+    ViewData["Title"] = "Тест";
+    bool isSubmitted = ViewBag.IsSubmitted == true;
+    int score = ViewBag.Score ?? Model.TestScore;
+    string title = Model.Course?.Title ?? "";
+}
+
+<div class="learn-layout">
+    <aside class="learn-sidebar">
+        <h5>@Model.Course?.Title</h5>
+
+        <a class="lesson-link" href="/Courses/Learn/@Model.Id?lessonIndex=0">Урок 1</a>
+        <a class="lesson-link" href="/Courses/Learn/@Model.Id?lessonIndex=1">Урок 2</a>
+        <a class="lesson-link" href="/Courses/Learn/@Model.Id?lessonIndex=2">Урок 3</a>
+        <div class="lesson-link active">Тест</div>
+
+        <div class="sidebar-progress">
+            <p>Прогрес: @Model.Progress%</p>
+            <div class="progress">
+                <div class="progress-bar" style="width:@Model.Progress%"></div>
+            </div>
+        </div>
+    </aside>
+
+    <section class="learn-content">
+        <div class="d-flex justify-content-between align-items-center">
+            <h1>Підсумковий тест</h1>
+            <div class="timer-box">10:00</div>
+        </div>
+
+        <hr />
+
+        @if (!isSubmitted)
+        {
+            <form method="post" action="/Courses/SubmitTest/@Model.Id">
+
+                @if (title.Contains("програмування"))
+                {
+                    <div class="test-question">
+                        <h4>Питання 1</h4>
+                        <p>Що таке алгоритм?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="algorithm" required />
+                            Послідовність дій для розв’язання задачі
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="text" />
+                            Просто текст у програмі
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 2</h4>
+                        <p>Що використовується для збереження даних?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="variable" required />
+                            Змінна
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="button" />
+                            Кнопка
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 3</h4>
+                        <p>Який оператор перевіряє умову?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="if" required />
+                            if / else
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="html" />
+                            html
+                        </label>
+                    </div>
+                }
+                else if (title.Contains("Веб"))
+                {
+                    <div class="test-question">
+                        <h4>Питання 1</h4>
+                        <p>Що створює структуру веб-сторінки?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="html" required />
+                            HTML
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="css" />
+                            CSS
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 2</h4>
+                        <p>Що відповідає за оформлення сторінки?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="css" required />
+                            CSS
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="sql" />
+                            SQL
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 3</h4>
+                        <p>Що таке MVC?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="mvc" required />
+                            Архітектурний підхід Model-View-Controller
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="image" />
+                            Формат картинки
+                        </label>
+                    </div>
+                }
+                else if (title.Contains("Бази"))
+                {
+                    <div class="test-question">
+                        <h4>Питання 1</h4>
+                        <p>Для чого використовується база даних?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="database" required />
+                            Для зберігання структурованої інформації
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="style" />
+                            Для зміни кольору кнопок
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 2</h4>
+                        <p>Що таке SQL?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="sql" required />
+                            Мова запитів до бази даних
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="css" />
+                            Мова стилів
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 3</h4>
+                        <p>Для чого потрібні зв’язки між таблицями?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="relation" required />
+                            Щоб поєднувати дані між таблицями
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="video" />
+                            Щоб запускати відео
+                        </label>
+                    </div>
+                }
+                else if (title.Contains("UI"))
+                {
+                    <div class="test-question">
+                        <h4>Питання 1</h4>
+                        <p>Що означають UI та UX?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="uiux" required />
+                            Інтерфейс користувача та зручність користування
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q1" value="server" />
+                            Сервер і база даних
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 2</h4>
+                        <p>Для чого потрібен макет сторінки?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="layout" required />
+                            Щоб продумати структуру сторінки
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q2" value="password" />
+                            Щоб зберігати пароль
+                        </label>
+                    </div>
+
+                    <div class="test-question">
+                        <h4>Питання 3</h4>
+                        <p>Для чого використовується Figma?</p>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="figma" required />
+                            Для створення макетів інтерфейсу
+                        </label>
+
+                        <label class="answer-box">
+                            <input type="radio" name="q3" value="sql" />
+                            Для написання SQL-запитів
+                        </label>
+                    </div>
+                }
+
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        Завершити тест
+                    </button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="result-box">
+                <h3>Результат: @score / 3</h3>
+
+                @if (score >= 2)
+                {
+                    <p>Тест успішно пройдено. Прогрес курсу оновлено до 100%.</p>
+                }
+                else
+                {
+                    <p>Тест не пройдено. Спробуйте ще раз.</p>
+                }
+
+                <div class="d-flex gap-2 mt-3">
+                    <a href="/Courses/Cabinet" class="btn btn-primary">
+                        Повернутися в кабінет
+                    </a>
+
+                    <a href="/Courses/Test/@Model.Id" class="btn btn-outline-primary">
+                        Пройти ще раз
+                    </a>
+                </div>
+            </div>
+        }
+    </section>
+</div>
